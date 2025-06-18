@@ -4,11 +4,7 @@ import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
 
-import Skeleton from '@mui/material/Skeleton';
-interface MediaProps {
-  loading?: boolean;
-}
-export default function loading(props: MediaProps) {
+export default function loading() {
   return (
     <Box component='section'>
       <Grid container justifyContent='center'  >
