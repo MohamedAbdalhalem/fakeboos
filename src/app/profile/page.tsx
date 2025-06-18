@@ -11,8 +11,8 @@ export default async function Profile() {
             headers: { token: myCookies.get('tkn')?.value! },
             cache:'force-cache'
             })
-        const userData = await res.json()
-        return userData.user
+        const {user} = await res.json()
+        return user
     }
     const userData : userDataType = await getUserData()
       return (

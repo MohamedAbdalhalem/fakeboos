@@ -1,6 +1,5 @@
 import { Grid, Typography } from '@mui/material'
 import { postType } from '_/app/types'
-import { get } from 'http'
 import { cookies } from 'next/headers'
 import React from 'react'
 import PostCreation from './PostCreation'
