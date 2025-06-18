@@ -7,10 +7,13 @@ import PostCreation from './_Components/Navbar/PostCreation'
 
 export default async function Home() {
   const myCookies = await cookies()
-  
+  const tokenValue = myCookies.get('tkn')?.value;
+  if (!tokenValue) {
+  throw new Error("Token not found in cookies");
+  }
   async function getAllPosts(){
     const res = await fetch('https://linked-posts.routemisr.com/posts?limit=20',{
-      headers: { token: myCookies.get('tkn')?.value! },
+      headers: { token: tokenValue! },
       cache:'force-cache'
     })
     const { posts } = await res.json()

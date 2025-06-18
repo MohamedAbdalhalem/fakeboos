@@ -5,10 +5,14 @@ import Image from "next/image"
 import UserPosts from "../_Components/Navbar/UserPosts"
 
 export default async function Profile() {
-    const myCookies = await cookies()
+  const myCookies = await cookies()
+  const tokenValue = myCookies.get('tkn')?.value;
+  if (!tokenValue) {
+  throw new Error("Token not found in cookies");
+  }
     async function getUserData() {
         const res = await fetch('https://linked-posts.routemisr.com/users/profile-data', {
-            headers: { token: myCookies.get('tkn')?.value! },
+            headers: { token: tokenValue! },
             cache:'force-cache'
             })
         const {user} = await res.json()
