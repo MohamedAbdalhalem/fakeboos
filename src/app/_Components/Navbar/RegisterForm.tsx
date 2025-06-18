@@ -31,7 +31,7 @@ export default function RegisterForm() {
     console.log(data)
       setIsLouding(true)
       axios.post('https://linked-posts.routemisr.com/users/signup', data)
-        .then(_ => {
+        .then(() => {
           setIsSuccess(true)
               setTimeout(() => {
                 setIsSuccess(false)

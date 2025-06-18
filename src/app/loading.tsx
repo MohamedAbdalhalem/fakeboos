@@ -9,7 +9,6 @@ interface MediaProps {
   loading?: boolean;
 }
 export default function loading(props: MediaProps) {
-  const { loading = false } = props;
   return (
     <Box component='section'>
       <Grid container justifyContent='center'  >

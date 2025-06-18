@@ -12,8 +12,8 @@ export default async function UserPosts({ userId }: { userId: string }) {
       headers: { token: myCookies.get('tkn')?.value! },
       cache: 'force-cache'
     })
-    const userposts = await res.json()
-    return userposts.posts
+    const {posts} = await res.json()
+    return posts
   }
   const userPosts :postType[] = await getUserPosts()
   return (
