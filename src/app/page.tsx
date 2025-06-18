@@ -4,10 +4,14 @@ import { postType } from './types'
 import { Box, Grid } from '@mui/material'
 import Post from './_Components/Navbar/Post'
 import PostCreation from './_Components/Navbar/PostCreation'
+import { redirect } from 'next/navigation';
 
 export default async function Home() {
   const myCookies = await cookies()
   const tokenValue = myCookies.get('tkn')?.value;
+  if (!tokenValue) {
+  redirect('/login');
+}
   if (!tokenValue) {
   throw new Error("Token not found in cookies");
   }

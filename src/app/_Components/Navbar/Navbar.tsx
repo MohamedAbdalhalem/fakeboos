@@ -1,5 +1,5 @@
 'use client'
-
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -78,7 +78,7 @@ function Navbar() {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <AccountCircleIcon />
               </IconButton>
             </Tooltip>
             <Menu
@@ -97,11 +97,7 @@ function Navbar() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {/* {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Link href={setting}><Typography sx={{ textAlign: 'center' }}>{setting}</Typography></Link>
-                </MenuItem>
-              ))} */}
+              
               <Link href='/profile'>
                 <MenuItem  onClick={handleCloseUserMenu}>
                     <Typography sx={{ textAlign: 'center' }}>Profile</Typography>
