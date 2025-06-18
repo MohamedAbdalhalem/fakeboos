@@ -7,7 +7,7 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
+
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import FacebookIcon from '@mui/icons-material/Facebook';
@@ -17,7 +17,6 @@ import {  ourStoreType } from '_/lib/Redux/FakebossStore';
 import { useState } from 'react';
 
 
-// const settings = ['Profile', 'login', 'register', 'logout'];
 
 function Navbar() {
   const { token } = useSelector((ourStore: ourStoreType) => ourStore.authSlice)
