@@ -7,9 +7,14 @@ import Post from './Post'
 
 export default async function UserPosts({ userId }: { userId: string }) {
   const myCookies = await cookies()
+  const tokenValue = myCookies.get('tkn')?.value;
+  if (!tokenValue) {
+  throw new Error("Token not found in cookies");
+  }
+
   async function getUserPosts() {
     const res= await fetch(`https://linked-posts.routemisr.com/users/${userId}/posts?limit=10`, {
-      headers: { token: myCookies.get('tkn')?.value! ?? undefined  },
+      headers: { token: tokenValue! },
       cache: 'force-cache'
     })
     const {posts} = await res.json()
