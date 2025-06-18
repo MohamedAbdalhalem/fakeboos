@@ -9,7 +9,7 @@ export default async function UserPosts({ userId }: { userId: string }) {
   const myCookies = await cookies()
   async function getUserPosts() {
     const res= await fetch(`https://linked-posts.routemisr.com/users/${userId}/posts?limit=10`, {
-      headers: { token: myCookies.get('tkn')?.value! },
+      headers: { token: myCookies.get('tkn')?.value! ?? ''  },
       cache: 'force-cache'
     })
     const {posts} = await res.json()
