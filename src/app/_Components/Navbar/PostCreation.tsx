@@ -44,7 +44,7 @@ export default function PostCreation() {
     setIsLouding(true)
     axios.post('https://linked-posts.routemisr.com/posts', data, {
       headers:{ token: myCoojies.get('tkn') }
-    }).then(_=>{
+    }).then(()=>{
       router.refresh()
       handleClose()
     }).catch(err=>{
