@@ -4,7 +4,6 @@ import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import { useRef, useState } from 'react';
 import { TextField, Typography } from '@mui/material';
-import { Dosis } from 'next/font/google';
 
 const style = {
   position: 'absolute',
