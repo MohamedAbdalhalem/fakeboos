@@ -12,27 +12,27 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import Link from 'next/link';
-import { useSelector } from 'react-redux';
-import {  ourStoreType } from '_/lib/Redux/FakebossStore';
-import { useState } from 'react';
 
+import { useState } from 'react';
+import mycookies from 'js-cookie'
+import { redirect } from 'next/navigation';
 
 
 function Navbar() {
-  const { token } = useSelector((ourStore: ourStoreType) => ourStore.authSlice)
-  console.log(token)
-  
+  const tkn = mycookies.get('tkn')
+
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
- 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
   };
-
-
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-
+  function hadleLogout() {
+    mycookies.remove('tkn')
+    handleCloseUserMenu()
+    redirect('/login')
+  }
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -77,7 +77,7 @@ function Navbar() {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <AccountCircleIcon />
+                <AccountCircleIcon   />
               </IconButton>
             </Tooltip>
             <Menu
@@ -96,13 +96,17 @@ function Navbar() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              
+              {tkn ? <Box>
               <Link href='/profile'>
                 <MenuItem  onClick={handleCloseUserMenu}>
                     <Typography sx={{ textAlign: 'center' }}>Profile</Typography>
                 </MenuItem>
-              </Link>
-              <Link href='/login'>
+                </Link>
+                <MenuItem  onClick={hadleLogout}>
+                    <Typography sx={{ textAlign: 'center' }}>logout</Typography>
+                </MenuItem>
+              </Box> : <Box>
+                  <Link href='/login'>
                 <MenuItem  onClick={handleCloseUserMenu}>
                     <Typography sx={{ textAlign: 'center' }}>login</Typography>
                 </MenuItem>
@@ -112,9 +116,10 @@ function Navbar() {
                     <Typography sx={{ textAlign: 'center' }}>register</Typography>
                 </MenuItem>
               </Link>
-              <MenuItem  onClick={handleCloseUserMenu}>
-                    <Typography sx={{ textAlign: 'center' }}>logout</Typography>
-                </MenuItem>
+              </Box>}
+              
+              
+              
             </Menu>
           </Box>
         </Toolbar>

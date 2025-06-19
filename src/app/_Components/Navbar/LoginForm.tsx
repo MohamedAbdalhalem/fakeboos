@@ -6,17 +6,18 @@ import { useForm } from 'react-hook-form';
 import axios from 'axios'
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import { useDispatch } from 'react-redux';
-import { setToken } from '_/lib/Redux/AuthSlice';
 import cookies from 'js-cookie'
+import { useRouter } from 'next/navigation';
+
 
 type loginForm = {
     email:string,
     password: string
 }
 
-export default  function LoginForm() {
-    
+export default function LoginForm() {
+  
+    const router = useRouter();
     const [showPassword, setShowPassword] = React.useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -28,7 +29,7 @@ export default  function LoginForm() {
   const handleMouseUpPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
   };
-    const dispatch =useDispatch()
+    
     const { register, handleSubmit, formState: { errors } } = useForm<loginForm>()
     const [islouding, setIsLouding] = useState(false)
     const [isError, setIsError] = useState<string | null>(null)
@@ -38,10 +39,10 @@ export default  function LoginForm() {
       axios.post<{token : string}>('https://linked-posts.routemisr.com/users/signin', data)
         .then(data => {
           cookies.set('tkn', data.data.token)
-            dispatch(setToken(data.data.token))
               setIsSuccess(true)
               setTimeout(() => {
                 setIsSuccess(false)
+                router.push('/')
             }, 3000);
         }).catch(err =>{
             setIsError(err.response.data.error)

@@ -3,10 +3,13 @@ import { userDataType } from "../types"
 import { Box, Grid, Typography } from "@mui/material"
 import Image from "next/image"
 import UserPosts from "../_Components/Navbar/UserPosts"
-
+import { redirect } from 'next/navigation'
 export default async function Profile() {
   const myCookies = await cookies()
   const tokenValue = myCookies.get('tkn')?.value;
+  if (!tokenValue) {
+    redirect('/login');
+  }
   if (!tokenValue) {
   throw new Error("Token not found in cookies");
   }
