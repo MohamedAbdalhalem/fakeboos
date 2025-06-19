@@ -1,2 +1,7 @@
 @layer theme, base, mui, components, utilities;
 @import 'tailwindcss';
+
+.active{
+    background-color: #1976D2;
+    color: #fff;
+}

@@ -15,12 +15,12 @@ import Link from 'next/link';
 
 import { useState } from 'react';
 import mycookies from 'js-cookie'
-import { redirect } from 'next/navigation';
+import { redirect, usePathname } from 'next/navigation';
 
 
 function Navbar() {
+  const path = usePathname()
   const tkn = mycookies.get('tkn')
-
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
@@ -98,8 +98,8 @@ function Navbar() {
             >
               {tkn ? <Box>
               <Link href='/profile'>
-                <MenuItem  onClick={handleCloseUserMenu}>
-                    <Typography sx={{ textAlign: 'center' }}>Profile</Typography>
+                <MenuItem className={path == '/profile' ? 'active' : ''}  onClick={handleCloseUserMenu}>
+                    <Typography sx={{ textAlign: 'center' }}>profile</Typography>
                 </MenuItem>
                 </Link>
                 <MenuItem  onClick={hadleLogout}>
@@ -107,12 +107,12 @@ function Navbar() {
                 </MenuItem>
               </Box> : <Box>
                   <Link href='/login'>
-                <MenuItem  onClick={handleCloseUserMenu}>
+                <MenuItem className={path == '/login' ? 'active' : ''}  onClick={handleCloseUserMenu}>
                     <Typography sx={{ textAlign: 'center' }}>login</Typography>
                 </MenuItem>
               </Link>
               <Link href='/register'>
-                <MenuItem  onClick={handleCloseUserMenu}>
+                <MenuItem className={path == '/register' ? 'active' : ''}  onClick={handleCloseUserMenu}>
                     <Typography sx={{ textAlign: 'center' }}>register</Typography>
                 </MenuItem>
               </Link>
