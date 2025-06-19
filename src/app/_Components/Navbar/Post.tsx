@@ -18,20 +18,34 @@ import { postType } from '../../types';
 import Image from 'next/image';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import DeleteIcon from '@mui/icons-material/Delete';
-
 import { TextField,Box, Button } from '@mui/material';
-
-
-
-export default function Post({postDetials} : {postDetials: postType}) {
+import myCookies from 'js-cookie'
+import axios from 'axios';
+import { useRouter } from 'next/navigation';
+export default function Post({postDetials,userId} : {postDetials: postType,userId : string}) {
   const [expanded, setExpanded] = React.useState(false);
-
+  const router = useRouter()
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-
+  const [isOpen, setIsOpen] = React.useState(false)
+  function isUserPost(){
+    if (postDetials.user._id === userId) {
+      return true
+    }
+  }
+  function handleDeletePost(){
+    axios.delete(`https://linked-posts.routemisr.com/posts/${postDetials.id}`, {
+      headers:{token : myCookies.get('tkn')}
+    }).then(data=>{
+      console.log(data)
+      router.refresh()
+    }).catch(err => {
+       console.log(err)
+    })
+  }
   return (
-    <Card sx={{mb:'20px'}} >
+    <Card  sx={{mb:'20px',position:'relative'}} >
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: '#1976D2' }} aria-label="recipe">
@@ -39,8 +53,8 @@ export default function Post({postDetials} : {postDetials: postType}) {
           </Avatar>
         }
         action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
+          isUserPost() && <IconButton onClick={()=> setIsOpen(!isOpen)} aria-label="settings">
+            <MoreVertIcon  />
           </IconButton>
         }
         title={postDetials.user.name}
@@ -93,6 +107,10 @@ export default function Post({postDetials} : {postDetials: postType}) {
                   <Button variant="contained" sx={{width:'8%'}} ><SendIcon/></Button>
               </Box>
       </Collapse>
+      {isOpen && <Box zIndex={5} component='div' sx={{position:"absolute",top:'25px',p:'5px',borderRadius:'5px',right:'50px',boxShadow:"0px 0px 5px 0px rgba(0,0,0,0.75);"}}>
+        <Typography onClick={handleDeletePost} sx={{textAlign:'center', mb:'5px',cursor:'pointer'}}>Delete</Typography>
+        {/* <Typography sx={{textAlign:'center',cursor:'pointer'}}>Edit</Typography> */}
+      </Box>}
     </Card>
   );
 }

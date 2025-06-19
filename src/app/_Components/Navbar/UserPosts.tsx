@@ -1,5 +1,5 @@
 import { Grid, Typography } from '@mui/material'
-import { postType } from '_/app/types'
+import { postType, userDataType } from '_/app/types'
 import { cookies } from 'next/headers'
 import React from 'react'
 import PostCreation from './PostCreation'
@@ -19,11 +19,20 @@ export default async function UserPosts({ userId }: { userId: string }) {
     const {posts} = await res.json()
     return posts
   }
+  async function getUserData() {
+          const res = await fetch('https://linked-posts.routemisr.com/users/profile-data', {
+              headers: { token: tokenValue! },
+              cache:'force-cache'
+              })
+          const {user} = await res.json()
+          return user
+      }
+     const userData : userDataType = await getUserData()
   const userPosts :postType[] = await getUserPosts()
   return (
 <Grid sx={{ m: '10px' }} size={{ xs: 12,md:8 }}>
           <PostCreation/>
-      {userPosts.length ? userPosts.map(post => <Post key={post.id} postDetials={post} />)
+      {userPosts.length ? userPosts.map(post => <Post userId={userData._id} key={post.id} postDetials={post} />)
     : <Typography component='h4' variant='h4' textAlign='center' >No Posts Yet</Typography>}
   </Grid>
   )

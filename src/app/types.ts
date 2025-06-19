@@ -9,6 +9,7 @@ export type postType = {
 export type userType = {
     name: string,
     photo: string,
+    _id:string
 }
 export type commentType = {
     content: string,
