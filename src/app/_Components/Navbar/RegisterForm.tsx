@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import  Box  from '@mui/material/Box';
 import { Controller, useForm } from 'react-hook-form';
 import axios from 'axios'
+import { useRouter } from 'next/navigation';
 
 
 
@@ -19,6 +20,7 @@ type registerForm = {
 
 }
 export default function RegisterForm() {
+  const router =  useRouter()
   const { register, handleSubmit, formState: { errors }, watch,control } = useForm<registerForm>({
     defaultValues: {
       gender: ''
@@ -33,7 +35,8 @@ export default function RegisterForm() {
       axios.post('https://linked-posts.routemisr.com/users/signup', data)
         .then(() => {
           setIsSuccess(true)
-              setTimeout(() => {
+          setTimeout(() => {
+                router.push('/login')
                 setIsSuccess(false)
             }, 3000);
         }).catch(err => {

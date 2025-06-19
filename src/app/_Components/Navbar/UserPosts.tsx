@@ -14,8 +14,7 @@ export default async function UserPosts({ userId }: { userId: string }) {
 
   async function getUserPosts() {
     const res= await fetch(`https://linked-posts.routemisr.com/users/${userId}/posts?limit=10`, {
-      headers: { token: tokenValue! },
-      cache: 'force-cache'
+      headers: { token: tokenValue! }
     })
     const {posts} = await res.json()
     return posts
