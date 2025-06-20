@@ -4,6 +4,7 @@ import { Box, Grid, Typography } from "@mui/material"
 import Image from "next/image"
 import UserPosts from "../_Components/Navbar/UserPosts"
 import { redirect } from 'next/navigation'
+import ImageCreation from "../_Components/Navbar/ImageCreation"
 export default async function Profile() {
   const myCookies = await cookies()
   const tokenValue = myCookies.get('tkn')?.value;
@@ -15,18 +16,19 @@ export default async function Profile() {
   }
     async function getUserData() {
         const res = await fetch('https://linked-posts.routemisr.com/users/profile-data', {
-            headers: { token: tokenValue! },
-            cache:'force-cache'
+            headers: { token: tokenValue! }
             })
         const {user} = await res.json()
         return user
     }
-    const userData : userDataType = await getUserData()
+  const userData: userDataType = await getUserData()
+  console.log(userData)
       return (
         <Box component='section'>
           <Grid container wrap='wrap' justifyContent="center">
                   <Grid sx={{ m: '10px',borderBottom:'1px solid #ccc' }} size={{ xs: 12, md: 8 }} >
-                      <Image width={200} height={200} style={{margin: 'auto'}} src={userData.photo} alt='' />
+              <Image width={200} height={200} style={{ margin: '10px auto', backgroundColor: '#ddd', borderRadius: "50%",objectFit: 'cover',width:'200px',height:'200px' }} src={userData.photo} alt='' />
+              <ImageCreation/>
                       <Typography sx={{
                           fontWeight: 'bold', mt: '15px', fontSize: '18px',
                           color:'#1976D2'

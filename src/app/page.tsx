@@ -35,13 +35,12 @@ export default async function Home() {
   const posts : postType[]  = await getAllPosts()
   return (
     <Box component='section'>
-      <Grid justifyContent={'center'}  container >
-
+      <Grid justifyContent='center' container >
+        
         <Grid sx={{ m: '10px' }} size={{ xs: 12, md: 8 }}>
           <PostCreation/>
     {posts.map(post=> <Post userId={userData._id} key={post.id} postDetials={post}/>)}
   </Grid>
-
 </Grid>
     </Box>
   )

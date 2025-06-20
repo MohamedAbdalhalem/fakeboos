@@ -38,7 +38,7 @@ export default function LoginForm() {
         setIsLouding(true)
       axios.post<{token : string}>('https://linked-posts.routemisr.com/users/signin', data)
         .then(data => {
-          cookies.set('tkn', data.data.token)
+          cookies.set('tkn', data.data.token,{expires:7})
               setIsSuccess(true)
               setTimeout(() => {
                 setIsSuccess(false)

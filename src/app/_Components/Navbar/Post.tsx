@@ -22,6 +22,7 @@ import { TextField,Box, Button, CircularProgress } from '@mui/material';
 import myCookies from 'js-cookie'
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import PostUpdate from './PostUpdate';
 export default function Post({postDetials,userId} : {postDetials: postType,userId : string}) {
   const [expanded, setExpanded] = React.useState(false);
   const router = useRouter()
@@ -151,7 +152,7 @@ export default function Post({postDetials,userId} : {postDetials: postType,userI
         <Typography onClick={handleDeletePost} sx={{ textAlign: 'center', mb: '5px', cursor: 'pointer' }}>
           {isLouding1 ? 'Deleting...' : 'Delete'}
         </Typography>
-        {/* <Typography sx={{textAlign:'center',cursor:'pointer'}}>Edit</Typography> */}
+        <PostUpdate PostId={postDetials.id} />
       </Box>}
     </Card>
   );
